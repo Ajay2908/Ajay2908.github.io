@@ -2,37 +2,47 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const User = require('../models/user')
+router.use(express.json())
+
 
 router.get('/', async (req, res) => {
-    res.send('do form here')
+    try {
+        const users = await User.find();
+        res.json(users);
+
+    }
+    catch (err) {
+        res.send("error occured!" + err);
+    }
+    
 })
 router.post('/login', async (req, res) => {
-    const user = await User.find(req.body.username); // TODO: correct find 
-    if(user === null){
-        res.send("No user found!")
+    const user = await User.findOne({username:req.body.username}) // TODO: correct find 
+    if (user === null) {
+        return res.send("No user found!")
     }
-    try{
-        if(await bcrypt.compare(req.body.password,user.password)){
-            res.send("success!")
+    try {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+            res.json(user)
         }
-        else{
+        else {
             res.send('Password Incorrect!')
         }
     }
-    catch{
+    catch {
         res.send("Something went wrong!")
     }
 })
 router.post('/', async (req, res) => {
-    const password = await bcrypt.hash(req.body.password,10);
+    const password = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         name: req.body.name,
         username: req.body.username,
-        password : password,
+        password: password,
         gmail: req.body.gmail,
-        codeforces_handle:req.body.codeforces_handle,
-        codechef_handle:req.body.codechef_handle,
-        atcoder_handle:req.body.atcoder_handle
+        codeforces_handle: req.body.codeforces_handle,
+        codechef_handle: req.body.codechef_handle,
+        atcoder_handle: req.body.atcoder_handle
     })
     try {
         const u1 = await user.save();
@@ -42,8 +52,6 @@ router.post('/', async (req, res) => {
     catch (err) {
         res.send(err);
     }
-
-
 })
 
 // route.patch('/:id', async (req, res) => {
