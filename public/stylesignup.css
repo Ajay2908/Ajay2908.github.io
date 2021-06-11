@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap%27');
 
 html,body{
-    background-image: url('bgimg.jpg');
+    background-image: url('1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height:100%;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat' !important;
 }
 .container{
     height: 100%;
@@ -13,24 +13,23 @@ html,body{
     }
     
     .card{
-    height: 330px;
+    height: 380px;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color: rgba(0,0,0,0.4) !important;
     }
-    
-    
     
     .card-header h3{
     color: white;
     }
     
+   
     
     .input-group-prepend span{
     width: 50px;
-    background-color: #FFC312;
-    color: black;
+    background-color: #0c76d3;
+    color: white;
     border:0 !important;
     }
     
@@ -39,24 +38,37 @@ html,body{
     box-shadow: 0 0 0 0 !important;
     
     }
-
+    
+    .remember{
+    color: white;
+    }
+    
+    .remember input
+    {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+    }
     
     .login_btn{
-    color: black;
-    background-color: #FFC312;
+    color: white;
+    background-color: #0c76d3 !important;
     width: 100px;
     }
     
     .login_btn:hover{
-    color: black;
+    color: white;
     background-color: white;
     }
-    
     .links{
-    color: white;
-    }
+        color: white;
+        }
+        
+.links a{
+        margin-top: 8px;
+        margin-left: 2px;
+        margin-right: auto;
+        color: white;
+        }
     
-    .links a{
-    margin-left: 4px;
-    }
-  
