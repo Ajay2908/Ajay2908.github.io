@@ -3,9 +3,9 @@
 
 <head>
 	<title>Login Page</title>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 
 
 
@@ -31,7 +31,7 @@
 					<h3>Sign Up</h3>
 				</div>
 				<div class="card-body">
-					<form id="SignupForm">
+					<form id="SignupForm" action="#">
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">
@@ -45,7 +45,7 @@
 									</svg>
 								</span>
 							</div>
-							<input type="text" class="form-control" placeholder="Name">
+							<input type="text" class="form-control" name="name" placeholder="Name">
 						</div>
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
@@ -57,7 +57,7 @@
 									</svg>
 								</span>
 							</div>
-							<input type="text" class="form-control" placeholder="username">
+							<input type="text" class="form-control" name="username" placeholder="username">
 						</div>
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
@@ -69,16 +69,16 @@
 									</svg>
 								</span>
 							</div>
-							<input type="email" class="form-control" placeholder="Gmail">
+							<input type="email" class="form-control" name="gmail" placeholder="Gmail">
 						</div>
 						<div class="input-group form-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" class="form-control" placeholder="password">
+							<input type="password" class="form-control" name="password" placeholder="password">
 						</div>
 						<div class="form-group">
-							<input type="submit" value="Sign Up"
+							<input type="button" value="Sign Up"
 								class="btn float-right login_btn text-light font-weight-bold" onclick="signup();">
 						</div>
 						<div class="d-flex justify-content-center links">
@@ -93,9 +93,8 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>

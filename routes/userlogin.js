@@ -14,23 +14,24 @@ router.get('/', async (req, res) => {
     catch (err) {
         res.send("error occured!" + err);
     }
-    
+
 })
 router.post('/login', async (req, res) => {
-    const user = await User.findOne({username:req.body.username}) // TODO: correct find 
+    console.log('Request received')
+    const user = await User.findOne({ username: req.body.username }) // TODO: correct find 
     if (user === null) {
-        return res.send("No user found!")
+        return res.json({ error: "No user found!" })
     }
     try {
         if (await bcrypt.compare(req.body.password, user.password)) {
             res.json(user)
         }
         else {
-            res.send('Password Incorrect!')
+            res.json({ error: "Password Incorrect!" })
         }
     }
     catch {
-        res.send("Something went wrong!")
+        res.json({ error: "Something is wrong" })
     }
 })
 router.post('/', async (req, res) => {
