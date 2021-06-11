@@ -13,7 +13,7 @@ html,body{
     }
     
     .card{
-    height: 380px;
+    height: 60%;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
@@ -54,7 +54,7 @@ html,body{
     .login_btn{
     color: white;
     background-color: #0c76d3 !important;
-    width: 100px;
+    width: 120px;
     }
     
     .login_btn:hover{
