@@ -4,17 +4,29 @@ const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filter = document.querySelector(".filter-todo");
+// const openLink = document.querySelector(".link-btn");
+
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
+todoList.addEventListener("click", gotoSite);
 filter.addEventListener("change", filterTodo);
 
 
 let currentActiveUser;
 // Functions
 
+function gotoSite(e) {
+    const item = e.target;
+    const todo = item.parentElement;
+    if (item.classList[0] === 'link-btn') {
+        const link = todo.innerText;
+        window.open(link, '_blank');
+    }
+
+}
 function getUser() {
     return new Promise((resolve, reject) => {
         try {
@@ -152,6 +164,11 @@ function createComponents(value) {
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
 
+    const linkButton = document.createElement("button");
+    linkButton.innerHTML = "<i class='fas fa-angle-right'></i>";
+    linkButton.classList.add("link-btn");
+    todoDiv.appendChild(linkButton);
+
     // Append all
     todoList.appendChild(todoDiv);
 }
@@ -219,7 +236,7 @@ function filterTodo(e) {
 }
 
 async function saveTodos(todo) {
-    await adddbtodos(todo); 
+    await adddbtodos(todo);
 }
 
 
