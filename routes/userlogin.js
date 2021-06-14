@@ -1,9 +1,15 @@
 const express = require('express')
+const session = require('express-session')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const User = require('../models/user')
 router.use(express.json())
 
+router.use(session({
+    secret: 'inka em led le',
+    resave: true,
+    saveUninitialized: true
+}))
 
 router.get('/', async (req, res) => {
     try {
@@ -19,12 +25,15 @@ router.get('/', async (req, res) => {
 router.post('/login', async (req, res) => {
     // console.log('Request received')
     const user = await User.findOne({ username: req.body.username }) // TODO: correct find 
+
     if (user === null) {
         return res.json({ error: "No user found!" })
     }
     try {
         if (await bcrypt.compare(req.body.password, user.password)) {
+            req.session.name = user.username;
             res.json(user)
+            
         }
         else {
             res.json({ error: "Password Incorrect!" })
@@ -33,6 +42,9 @@ router.post('/login', async (req, res) => {
     catch {
         res.json({ error: "Something is wrong" })
     }
+})
+router.get('/session', async (req, res) => {
+    return res.send(req.session.name)
 })
 router.post('/', async (req, res) => {
     const password = await bcrypt.hash(req.body.password, 10);

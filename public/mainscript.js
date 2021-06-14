@@ -118,7 +118,22 @@ function saveTodos(todo) {
     localStorage.setItem("todos", JSON.stringify(todos)); // TODO : store it in data base of user 
 }
 
-function getTodos() {
+async function getTodos() {
+    let user_name;
+    $.ajax({
+        type: "get",
+        url: '/users/session',
+        contentType: "text/html",
+        dataType: "text",
+        async: false,
+        success: function (response) {
+            user_name = response;
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    })
+    document.getElementById("username").innerText = user_name;
     let todos;
 
     // TODO : get all the todos of current user from mongodb
