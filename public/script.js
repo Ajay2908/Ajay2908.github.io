@@ -63,9 +63,15 @@ async function signup() {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(tosend),
+            
             success: function (response) {
                 // const data = JSON.parse(response);
                 const data = JSON.parse(JSON.stringify(response))
+                // alert('Sign up Succesful!')
+                showmsg();
+                setTimeout(function () { location.href = "index.html";    }, 1000);
+
+                
                 console.log(data)
             },
             error: function (result) {
@@ -78,3 +84,9 @@ async function signup() {
     }
 
 }
+function showmsg() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+}
+
