@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const userlogin = require('./routes/userlogin')
 const url = 'mongodb://localhost/userDB'
+let currentuser;
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const con = mongoose.connection
@@ -18,6 +19,10 @@ app.use(express.static('./public'))
 
 app.get('/',(req,res)=>{
     res.send('Hello World')
+})
+app.get('/profile',(req,res)=>{
+    res.json({user:currentuser})
+
 })
 app.listen(5000,()=>{
     console.log("listening on port 5000");

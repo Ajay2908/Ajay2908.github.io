@@ -27,14 +27,20 @@ body {
 header {
     text-shadow: 2px 2px 15px rgb(176, 230, 255);
     font-size: 1.2rem;
+    min-height: 10vh;
+    display: flex;
+    margin: 0.5rem;
+    justify-content:flex-start;
+    align-items:flex-start;
+    
 }
 
-header,
+
 form {
     min-height: 25vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 form input,
