@@ -3,8 +3,8 @@ async function login() {
     const data = $("form").serializeArray();
     const user_name = data[0].value;
     const password = data[1].value;
-    console.log(user_name)
-    console.log(password)
+    // console.log(user_name)
+    // console.log(password)
     const tosend = {
         username: user_name,
         password: password
@@ -30,7 +30,8 @@ async function login() {
             alert(login.error)
         }
         else{
-            alert(`Hello ${login.name}`)
+            // alert(`Hello ${login.name}`)
+            location.href = "main.html";
         }
         // alert(`Hello ${login.name}`)
     }

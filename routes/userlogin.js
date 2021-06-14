@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
 })
 router.post('/login', async (req, res) => {
-    console.log('Request received')
+    // console.log('Request received')
     const user = await User.findOne({ username: req.body.username }) // TODO: correct find 
     if (user === null) {
         return res.json({ error: "No user found!" })
