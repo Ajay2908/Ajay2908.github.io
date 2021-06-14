@@ -40,13 +40,13 @@ form {
     min-height: 25vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 form input,
 form button {
     padding: 0.5rem 0.5rem 0.5rem 1rem;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     border: none;
 
     background: #f4f4f4;
@@ -157,7 +157,9 @@ select {
     cursor: pointer;
     padding: 1rem;
 }
-
+.filter-todo{
+    padding: 0.75rem;
+}
 .select {
     margin: 1rem;
     position: relative;

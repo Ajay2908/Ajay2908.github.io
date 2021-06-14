@@ -49,8 +49,8 @@ function addTodo(e) {
     // Creating all components
     createComponents(todoInput.value);
 
-    // Add todo to local storage
-    saveLocalTodos(todoInput.value);
+    // TODO : save todos to the data base
+    saveTodos(todoInput.value);
 
     // Clear and focus Input
     todoInput.value = "";
@@ -64,7 +64,7 @@ function deleteCheck(e) {
     if (item.classList[0] === "trash-btn") {
         todo.classList.add("fall");
         todo.addEventListener("animationend", function () {
-            removeLocalTodos(todo);
+            removeTodos(todo);
             todo.remove();
         });
     }
@@ -103,11 +103,11 @@ function filterTodo(e) {
     });
 }
 
-function saveLocalTodos(todo) {
+function saveTodos(todo) {
     // Check
     let todos;
 
-    // if it HAS already an item, get it
+    // TODO : access todos of the current user in data base
     if (localStorage.getItem("todos") !== null) {
         todos = JSON.parse(localStorage.getItem("todos"));
     } else {
@@ -115,13 +115,13 @@ function saveLocalTodos(todo) {
     }
 
     todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos)); // TODO : store it in data base of user 
 }
 
 function getTodos() {
     let todos;
 
-    // if it HAS already an item, get it
+    // TODO : get all the todos of current user from mongodb
     if (localStorage.getItem("todos") !== null) {
         todos = JSON.parse(localStorage.getItem("todos"));
     } else {
@@ -133,9 +133,11 @@ function getTodos() {
     });
 }
 
-function removeLocalTodos(todo) {
+function removeTodos(todo) {
     let todos;
 
+
+    // TODO : Get all the todos of the current active user
     if (localStorage.getItem("todos") !== null) {
         todos = JSON.parse(localStorage.getItem("todos"));
     } else {
@@ -144,5 +146,7 @@ function removeLocalTodos(todo) {
 
     const todoIndex = todo.children[0].innerText;
     todos.splice(todos.indexOf(todoIndex), 1);
+
+    // TODO : Update current users data base 
     localStorage.setItem("todos", JSON.stringify(todos));
 }

@@ -17,13 +17,13 @@ app.use('/users', userlogin);
 app.use(express.json())
 app.use(express.static('./public'))
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send('Hello World')
 })
-app.get('/profile',(req,res)=>{
-    res.json({user:currentuser})
+app.get('/profile', (req, res) => {
+    res.json({ user: currentuser })
 
 })
-app.listen(5000,()=>{
+app.listen(5000, () => {
     console.log("listening on port 5000");
 })
