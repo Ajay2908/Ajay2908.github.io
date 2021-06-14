@@ -210,7 +210,7 @@ async function saveTodos(todo) {
 async function getTodos() {
     await getUser();
     console.log(currentActiveUser)
-    let todos = [];
+    let todos = []
 
     // TODO : get all the todos of current user from mongodb
 
