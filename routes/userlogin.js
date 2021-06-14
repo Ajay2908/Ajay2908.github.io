@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
         if (await bcrypt.compare(req.body.password, user.password)) {
             req.session.name = user.username;
             res.json(user)
-            
+
         }
         else {
             res.json({ error: "Password Incorrect!" })
@@ -46,6 +46,23 @@ router.post('/login', async (req, res) => {
 router.get('/session', async (req, res) => {
     return res.send(req.session.name)
 })
+
+router.get('/todolist/:username', async (req, res) => {
+    const current_user = req.params['username'];
+    const user = await User.findOne({ username: current_user });
+    // console.log(user.todoList);
+    res.json({ todoList: user.todoList });
+})
+
+router.post('/todolist/:username', async (req, res) => {
+    const current_user = req.params['username'];
+    const user = await User.findOne({ username: current_user });
+    user.todoList.push(req.body.problem);
+    await user.save();
+    res.json({ todoList: user.todoList });
+})
+
+
 router.post('/', async (req, res) => {
     const password = await bcrypt.hash(req.body.password, 10);
     const user = new User({
@@ -79,14 +96,17 @@ router.post('/', async (req, res) => {
 //     }
 
 // })
-// route.delete('/:id', async (req, res) => {
-//     try {
-//         const alien = await Alien.findById(req.params.id);
-//         const a1 = await alien.remove();
-//         res.json(a1);
-//     }
-//     catch (err) {
-//         res.send(err);
-//     }
-// })
+router.post('/todolist/update/:username', async (req, res) => {
+    try {
+        const currentuser = req.params['username']
+        const user = await User.findOne({ username: currentuser });
+        console.log(req.body);
+        user.todoList.push(req.body.toadd);
+        await user.save();
+        res.json({ todoList: user.todoList });
+    }
+    catch (err) {
+        res.send(err);
+    }
+})
 module.exports = router;

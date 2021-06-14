@@ -16,17 +16,8 @@ const userschema = new mongoose.Schema({
         type:String,
         required:true
     },
-    codeforces_handle:{
-        type:String,
-        required:false
-    },
-    codechef_handle:{
-        type:String,
-        required:false
-    },
-    atcoder_handle:{
-        type:String,
-        required:false
+    todoList:{
+        type:Array
     }
 })
 module.exports = mongoose.model('User', userschema)

@@ -6,13 +6,99 @@ const todoList = document.querySelector(".todo-list");
 const filter = document.querySelector(".filter-todo");
 
 // Event Listeners
-
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filter.addEventListener("change", filterTodo);
 
+
+let currentActiveUser;
 // Functions
+
+function getUser() {
+    return new Promise((resolve, reject) => {
+        try {
+            let user_name;
+            $.ajax({
+                type: "get",
+                url: '/users/session',
+                contentType: "text/html",
+                dataType: "text",
+                async: false,
+                success: function (response) {
+                    user_name = response;
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            })
+            document.getElementById("username").innerText = user_name;
+            currentActiveUser = user_name;
+            resolve('success');
+        }
+        catch (e) {
+            reject(e);
+        }
+
+    })
+
+}
+function dbtodos() {
+    return new Promise((resolve, reject) => {
+        try {
+            let todos;
+            $.ajax({
+                type: "get",
+                url: `/users/todolist/${currentActiveUser}`,
+                contentType: "application/json",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    todos = JSON.parse(JSON.stringify(response));
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            })
+            resolve(todos);
+        }
+        catch (e) {
+            reject({ error: e });
+        }
+
+    })
+
+}
+
+function adddbtodos(todo) {
+
+    return new Promise((resolve, reject) => {
+        try {
+            console.log(todo)
+            let todos;
+            $.ajax({
+                type: "post",
+                url: `/users/todolist/update/${currentActiveUser}`,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({ toadd: todo }),
+                async: false,
+                success: function (response) {
+                    // todos = JSON.parse(JSON.stringify(response));
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            })
+            resolve('success');
+        }
+        catch (e) {
+            reject({ error: e });
+        }
+
+    })
+
+}
 
 function createComponents(value) {
     // Create div
@@ -103,50 +189,50 @@ function filterTodo(e) {
     });
 }
 
-function saveTodos(todo) {
+async function saveTodos(todo) {
     // Check
     let todos;
 
     // TODO : access todos of the current user in data base
-    if (localStorage.getItem("todos") !== null) {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    } else {
-        todos = [];
-    }
+    await adddbtodos(todo);
+    // if (localStorage.getItem("todos") !== null) {
+    //     todos = JSON.parse(localStorage.getItem("todos"));
+    // } else {
+    //     todos = [];
+    // }
 
-    todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(todos)); // TODO : store it in data base of user 
+    // todos.push(todo);
+    // localStorage.setItem("todos", JSON.stringify(todos)); // TODO : store it in data base of user 
 }
 
+
+
 async function getTodos() {
-    let user_name;
-    $.ajax({
-        type: "get",
-        url: '/users/session',
-        contentType: "text/html",
-        dataType: "text",
-        async: false,
-        success: function (response) {
-            user_name = response;
-        },
-        error: function (result) {
-            console.log(result);
-        }
-    })
-    document.getElementById("username").innerText = user_name;
-    let todos;
+    await getUser();
+    console.log(currentActiveUser)
+    let todos = [];
 
     // TODO : get all the todos of current user from mongodb
-    if (localStorage.getItem("todos") !== null) {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    } else {
-        todos = [];
+
+    // if (localStorage.getItem("todos") !== null) {
+    //     todos = JSON.parse(localStorage.getItem("todos"));
+    // } else {
+    //     todos = [];
+    // }
+    problems = await dbtodos();
+    problemArray = problems.todoList;
+
+    for (let problem of problemArray) {
+        todos.push(problem);
     }
 
     todos.forEach(function (todo) {
         createComponents(todo);
     });
 }
+
+
+
 
 function removeTodos(todo) {
     let todos;
