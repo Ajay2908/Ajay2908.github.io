@@ -99,6 +99,35 @@ function adddbtodos(todo) {
     })
 
 }
+function updatedbtodos(todo) {
+
+    return new Promise((resolve, reject) => {
+        try {
+            console.log(todo)
+            let todos;
+            $.ajax({
+                type: "post",
+                url: `/users/todolist/change/${currentActiveUser}`,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({ toadd: todo }),
+                async: false,
+                success: function (response) {
+                    // todos = JSON.parse(JSON.stringify(response));
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            })
+            resolve('success');
+        }
+        catch (e) {
+            reject({ error: e });
+        }
+
+    })
+
+}
 
 function createComponents(value) {
     // Create div
@@ -190,19 +219,7 @@ function filterTodo(e) {
 }
 
 async function saveTodos(todo) {
-    // Check
-    let todos;
-
-    // TODO : access todos of the current user in data base
-    await adddbtodos(todo);
-    // if (localStorage.getItem("todos") !== null) {
-    //     todos = JSON.parse(localStorage.getItem("todos"));
-    // } else {
-    //     todos = [];
-    // }
-
-    // todos.push(todo);
-    // localStorage.setItem("todos", JSON.stringify(todos)); // TODO : store it in data base of user 
+    await adddbtodos(todo); 
 }
 
 
@@ -211,21 +228,8 @@ async function getTodos() {
     await getUser();
     console.log(currentActiveUser)
     let todos = []
-
-    // TODO : get all the todos of current user from mongodb
-
-    // if (localStorage.getItem("todos") !== null) {
-    //     todos = JSON.parse(localStorage.getItem("todos"));
-    // } else {
-    //     todos = [];
-    // }
     problems = await dbtodos();
-    problemArray = problems.todoList;
-
-    for (let problem of problemArray) {
-        todos.push(problem);
-    }
-
+    todos = problems.todoList;
     todos.forEach(function (todo) {
         createComponents(todo);
     });
@@ -234,20 +238,11 @@ async function getTodos() {
 
 
 
-function removeTodos(todo) {
+async function removeTodos(todo) {
     let todos;
-
-
-    // TODO : Get all the todos of the current active user
-    if (localStorage.getItem("todos") !== null) {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    } else {
-        todos = [];
-    }
-
+    problems = await dbtodos();
+    todos = problems.todoList;
     const todoIndex = todo.children[0].innerText;
     todos.splice(todos.indexOf(todoIndex), 1);
-
-    // TODO : Update current users data base 
-    localStorage.setItem("todos", JSON.stringify(todos));
+    await updatedbtodos(todos);
 }

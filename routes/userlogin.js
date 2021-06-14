@@ -109,4 +109,17 @@ router.post('/todolist/update/:username', async (req, res) => {
         res.send(err);
     }
 })
+router.post('/todolist/change/:username', async (req, res) => {
+    try {
+        const currentuser = req.params['username']
+        const user = await User.findOne({ username: currentuser });
+        console.log(req.body);
+        user.todoList = req.body.toadd;
+        await user.save();
+        res.json({ todoList: user.todoList });
+    }
+    catch (err) {
+        res.send(err);
+    }
+})
 module.exports = router;
