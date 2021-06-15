@@ -46,7 +46,7 @@ function getUser() {
             })
             document.getElementById("username").innerText = user_name;
             currentActiveUser = user_name;
-            resolve('success');
+            resolve(user_name);
         }
         catch (e) {
             reject(e);
