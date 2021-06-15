@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const userlogin = require('./routes/userlogin')
 dotenv.config();
-const url = `mongodb+srv://${ENV['USER_NAME']}:${ENV['USER_PASSWORD']}@cluster0.znlfd.mongodb.net/dataDB`
+const url = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.znlfd.mongodb.net/dataDB`
 let currentuser;
 // console.log(url)
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
