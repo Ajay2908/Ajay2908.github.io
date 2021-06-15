@@ -12,6 +12,7 @@ const con = mongoose.connection
 con.on('open', () => {
     console.log('Database connected...');
 })
+const PORT = process.env.PORT || 5000;
 
 const app = express()
 app.use('/users', userlogin);
@@ -26,6 +27,6 @@ app.get('/profile', (req, res) => {
     res.json({ user: currentuser })
 
 })
-app.listen(5000, () => {
+app.listen(PORT, () => {
     console.log("listening on port 5000");
 })
